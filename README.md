@@ -138,6 +138,4 @@ to test type
 pi@raspberrypi:~ $ ir-keytable --test
 ```
 to bind actions (triggers) to a IR Key edit eg. /etc/triggerhappy/triggers.d/power.conf (new File)
-and add the line
-  **KEY_POWER		1	sudo /sbin/halt**
-to shutdown with the power keyt
+and add the line **KEY_POWER		1	sudo /sbin/halt** to shutdown with the power key
