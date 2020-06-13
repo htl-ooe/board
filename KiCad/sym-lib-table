@@ -1,0 +1,6 @@
+(sym_lib_table
+  (lib (name Memory_EEPROM_)(type Legacy)(uri ${KIPRJMOD}/library/Memory_EEPROM.lib)(options "")(descr "EEPROM memory"))
+  (lib (name Connector_RaspberryPi)(type Legacy)(uri ${KIPRJMOD}/library/Connector_RaspberryPi.lib)(options "")(descr "Raspberry Pi connector symbols"))
+  (lib (name Power_Management_)(type Legacy)(uri ${KIPRJMOD}/library/Power_Management.lib)(options "")(descr "Power management and distribution ICs"))
+  (lib (name Interface_Optical_)(type Legacy)(uri ${KIPRJMOD}/library/Interface_Optical.lib)(options "")(descr "Optical interfaces (IR receivers)"))
+)

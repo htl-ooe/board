@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP MIC94044YFL
+D Single-channel, high side, power distribution switch, 1.7V-5.5V, Active High Output, MLF
+K mosfet distribution
+F http://ww1.microchip.com/downloads/en/DeviceDoc/mic94044_5.pdf
+$ENDCMP
+#
+#End Doc Library

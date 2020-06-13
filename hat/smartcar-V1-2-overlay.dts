@@ -1,0 +1,98 @@
+// Definitions for Smart Car V1.2 Module
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2835";
+
+	fragment@0 {
+		target = <&gpio>;
+		__overlay__ {
+			status = "okay"; /* device is enabled */
+			gpio_ultrasonic_pins_j4: gpio_ultrasonic_pins_j4 {
+				brcm,pins = <5 12 6>;
+				brcm,function = <1 1 0>; /* 0:in, 1:out */
+				brcm,pull = <0 0 1>; // 2:up 1:down 0:none
+			};
+			gpio_ultrasonic_pins_j5: gpio_ultrasonic_pins_j5 {
+				brcm,pins = <4 13 16>;
+				brcm,function = <1 1 0>; /* 0:in, 1:out */
+				brcm,pull = <0 0 1>; // 2:up 1:down 0:none
+			};
+			gpio_driver_pins: gpio_driver_pins {
+				brcm,pins = <23 27>;
+				brcm,function = <1 1>; /* 0:in, 1:out */
+				brcm,pull = <0 0>; // 2:up 1:down 0:none
+			};
+			gpio_ir_pins: gpio_ir_pins {
+				brcm,pins = <15>;
+				brcm,function = <0>; /* 0:in, 1:out */
+				brcm,pull = <0>; // 2:up 1:down 0:none
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&i2c_arm>;
+		__overlay__ {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "okay";
+
+			pca: pca@40 {
+				// https://github.com/raspberrypi/linux File: pwm-pca9685.c
+				compatible = "nxp,pca9685-pwm"; //PCA9685PW
+				#pwm-cells = <2>;
+				reg = <0x40>;
+				status = "okay";
+			};
+		};
+	};
+	
+	fragment@2 {
+		target-path = "/";
+		__overlay__ {
+			gpio_ir: ir-receiver {
+				// https://github.com/raspberrypi/linux File: gpio-ir-recv.c
+				compatible = "gpio-ir-receiver";
+				gpios = <&gpio 15 1>;
+				// linux,rc-map-name = "rc-rc6-mce";
+				status = "okay";
+			};
+		};
+	};
+
+	fragment@3 {
+		target-path = "/";
+		__overlay__ {
+			srf04@j4 {
+				// https://github.com/raspberrypi/linux File: srf04.c
+				compatible = "devantech,srf04";
+				pinctrl-names = "default";
+				pinctrl-0 = <&gpio_ultrasonic_pins_j4>;
+				trig-gpios = <&gpio 5 0>;
+				echo-gpios = <&gpio 6 0>;
+				power-gpios = <&gpio 12 0>;
+				startup-time-ms = <150>;
+				status = "okay";
+			};
+		};
+	};
+
+	fragment@4 {
+		target-path = "/";
+		__overlay__ {
+			srf04@j5 {
+				// https://github.com/raspberrypi/linux File: srf04.c
+				compatible = "devantech,srf04";
+				pinctrl-names = "default";
+				pinctrl-0 = <&gpio_ultrasonic_pins_j5>;
+				trig-gpios = <&gpio 4 0>;
+				echo-gpios = <&gpio 16 0>;
+				power-gpios = <&gpio 13 0>;
+				startup-time-ms = <150>;
+				status = "okay";
+			};
+		};
+	};
+};
