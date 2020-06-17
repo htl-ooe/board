@@ -100,6 +100,7 @@ Download the latest Version of the **eepromutils** and compile the utils
 ```console
 pi@raspberrypi:~ $ sudo apt-get install -y git
 pi@raspberrypi:~ $ git clone https://github.com/raspberrypi/hats.git
+pi@raspberrypi:~ $ git clone https://github.com/htl-ooe/board.git
 pi@raspberrypi:~ $ cd hats/eepromutils && make ; cd
 ```
 ```console
@@ -110,10 +111,20 @@ compiles the device tree source file and copies it to `/boot/overlays`
 pi@raspberrypi:~ $ ./hats/eepromutils/eepmake ./board/hat/eeprom_settings.txt ./board/hat/smartcar-V1-2.eep /boot/overlays/smartcar-V1-2.dtbo
 ```
 generates the contents of the EEPROM
+
+Disable the write protection with a piece of wire or calipers: 
+![Disable the write protection](./hat/disable-write-protection.png)
+
 ```console
 pi@raspberrypi:~ $ sudo ./hats/eepromutils/eepflash.sh -w -f=./board/hat/smartcar-V1-2.eep -t=24c512
 ```
 writes smartcar-V1-2.eep to the EEPROM, assumed that you disabled the Write Protection and i2c-0 can be enabled. Propably you need dtparam=i2c_vc=on in [config.txt](https://www.raspberrypi.org/documentation/configuration/config-txt/README.md "config.txt").
+
+#### Reboot
+```
+pi@raspberrypi:~ $ sudo reboot --force
+```
+
 ## Ultrasonic Sensors
 ### Compile modules install toolchain and headers
 ```console
