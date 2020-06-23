@@ -96,7 +96,7 @@ Controlling the PWM Unit can be done in the virtual Filesystem `/sys/class/pwm/p
 When using **Python** [python-periphery](https://python-periphery.readthedocs.io/ "python-periphery") can access the PWM channels.
 Keyboard, Mouse, Joysticks and Game Controllers can easily be accessed using [python-evdev](https://python-evdev.readthedocs.io/ "python-evdev")
 #### Programing the HAT EEPROM
-Download the latest Version of the **eepromutils** and compile the utils
+Download the latest Version of the **eepromutils** and compile the utils. You can also download the Repository (zip file) and unzip them in pi's homedirectory. Then you have to rename the directorys, so they do not contain "-master".
 ```console
 pi@raspberrypi:~ $ sudo apt-get install -y git
 pi@raspberrypi:~ $ git clone https://github.com/raspberrypi/hats.git
@@ -106,7 +106,8 @@ pi@raspberrypi:~ $ cd hats/eepromutils && make ; cd
 ```console
 pi@raspberrypi:~ $ sudo dtc -@ -H epapr -O dtb -o "/boot/overlays/smartcar-V1-2.dtbo" -W no-unit_address_vs_reg './board/hat/smartcar-V1-2-overlay.dts'
 ```
-compiles the device tree source file and copies it to `/boot/overlays`
+compiles the device tree source file and copies it to `/boot/overlays`. You can test the overlayfile by adding the line
+`dtoverlay=smartcar-V1-2` to [config.txt](https://www.raspberrypi.org/documentation/configuration/config-txt/README.md "config.txt")
 ```console
 pi@raspberrypi:~ $ ./hats/eepromutils/eepmake ./board/hat/eeprom_settings.txt ./board/hat/smartcar-V1-2.eep /boot/overlays/smartcar-V1-2.dtbo
 ```
@@ -122,7 +123,7 @@ writes smartcar-V1-2.eep to the EEPROM, assumed that you disabled the Write Prot
 
 #### Reboot
 ```
-pi@raspberrypi:~ $ sudo reboot --force
+pi@raspberrypi:~ $ sudo reboot
 ```
 
 ## Ultrasonic Sensors
