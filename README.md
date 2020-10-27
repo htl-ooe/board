@@ -109,7 +109,7 @@ pi@raspberrypi:~ $ sudo dtc -@ -H epapr -O dtb -o "/boot/overlays/smartcar-V1-2.
 compiles the device tree source file and copies it to `/boot/overlays`. You can test the overlayfile by adding the line
 `dtoverlay=smartcar-V1-2` to [config.txt](https://www.raspberrypi.org/documentation/configuration/config-txt/README.md "config.txt")
 ```console
-pi@raspberrypi:~ $ ./hats/eepromutils/eepmake ./board/hat/eeprom_settings.txt ./board/hat/smartcar-V1-2.eep /boot/overlays/smartcar-V1-2.dtbo
+pi@raspberrypi:~ $ ./hats/eepromutils/eepmake ./board/hat/eeprom_settings-V1-2.txt ./board/hat/smartcar-V1-2.eep /boot/overlays/smartcar-V1-2.dtbo
 ```
 generates the contents of the EEPROM
 
