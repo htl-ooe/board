@@ -139,6 +139,7 @@ pi@raspberrypi:~ $ sudo apt-get install -y raspberrypi-kernel-headers
 ```
 installs the header Files for the Kernel
 ```console
+pi@raspberrypi:~ $ git clone https://github.com/htl-ooe/board.git
 pi@raspberrypi:~ $ sudo /home/pi/board/drivers/install.sh
 ```
 compiles the srf04.c File and copies it to the propper directory. When you did this once you can copy the compiled module to another Raspberry Pi and do not have to compile (download the rpi headers) again.
