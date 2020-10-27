@@ -60,6 +60,12 @@ apt-get needs the time and date to be set to an actual value! You can do this by
 pi@raspberrypi:~ $ sudo date -s "13 Jun 2020 09:20:00"
 pi@raspberrypi:~ $ date # returns current time and date
 ```
+If you have a ntp timeserver up and running you can edit
+```console
+pi@raspberrypi:~ $ sudo vi /etc/systemd/timesyncd.conf
+```
+to update the time via network.
+
 To do the necessary software Maintenance you should enter
 ```console
 pi@raspberrypi:~ $ sudo apt-get -y update && sudo apt-get -y dist-upgrade
