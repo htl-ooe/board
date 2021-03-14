@@ -9,25 +9,42 @@
 		target = <&gpio>;
 		__overlay__ {
 			status = "okay"; /* device is enabled */
-			gpio_ultrasonic_pins_j4: gpio_ultrasonic_pins_j4 {
-				brcm,pins = <5 12 6>;
-				brcm,function = <1 1 0>; /* 0:in, 1:out */
-				brcm,pull = <0 0 1>; // 2:up 1:down 0:none
-			};
-			gpio_ultrasonic_pins_j5: gpio_ultrasonic_pins_j5 {
-				brcm,pins = <4 13 16>;
-				brcm,function = <1 1 0>; /* 0:in, 1:out */
-				brcm,pull = <0 0 1>; // 2:up 1:down 0:none
-			};
 			gpio_driver_pins: gpio_driver_pins {
 				brcm,pins = <23 27>;
 				brcm,function = <1 1>; /* 0:in, 1:out */
 				brcm,pull = <0 0>; // 2:up 1:down 0:none
 			};
-			gpio_ir_pins: gpio_ir_pins {
-				brcm,pins = <15>;
-				brcm,function = <0>; /* 0:in, 1:out */
-				brcm,pull = <0>; // 2:up 1:down 0:none
+			motor0_phase_a: motor0_phase_a {
+				pwms = <&pca9685 0 20000000>;
+				pwm-names = "motor0_phase_A";
+			};
+			motor0_phase_b: motor0_phase_b {
+				pwms = <&pca9685 1 20000000>;
+				pwm-names = "motor0_phase_b";
+			};
+			motor1_phase_a: motor1_phase_a {
+				pwms = <&pca9685 2 20000000>;
+				pwm-names = "motor1_phase_A";
+			};
+			motor1_phase_b: motor1_phase_b {
+				pwms = <&pca9685 3 20000000>;
+				pwm-names = "motor1_phase_b";
+			};
+			motor2_phase_a: motor2_phase_a {
+				pwms = <&pca9685 4 20000000>;
+				pwm-names = "motor2_phase_A";
+			};
+			motor2_phase_b: motor2_phase_b {
+				pwms = <&pca9685 5 20000000>;
+				pwm-names = "motor2_phase_b";
+			};
+			motor3_phase_a: motor3_phase_a {
+				pwms = <&pca9685 6 20000000>;
+				pwm-names = "motor3_phase_A";
+			};
+			motor3_phase_b: motor3_phase_b {
+				pwms = <&pca9685 7 20000000>;
+				pwm-names = "motor3_phase_b";
 			};
 		};
 	};
@@ -39,11 +56,12 @@
 			#size-cells = <0>;
 			status = "okay";
 
-			pca: pca@40 {
+			pca9685: pca9685@40 {
 				// https://github.com/raspberrypi/linux File: pwm-pca9685.c
 				compatible = "nxp,pca9685-pwm"; //PCA9685PW
 				#pwm-cells = <2>;
 				reg = <0x40>;
+				pinctrl-0 = <&gpio_driver_pins>;
 				status = "okay";
 			};
 		};
@@ -68,8 +86,6 @@
 			srf04@j4 {
 				// https://github.com/raspberrypi/linux File: srf04.c
 				compatible = "devantech,srf04";
-				pinctrl-names = "default";
-				pinctrl-0 = <&gpio_ultrasonic_pins_j4>;
 				trig-gpios = <&gpio 5 0>;
 				echo-gpios = <&gpio 6 0>;
 				power-gpios = <&gpio 12 0>;
@@ -85,8 +101,6 @@
 			srf04@j5 {
 				// https://github.com/raspberrypi/linux File: srf04.c
 				compatible = "devantech,srf04";
-				pinctrl-names = "default";
-				pinctrl-0 = <&gpio_ultrasonic_pins_j5>;
 				trig-gpios = <&gpio 4 0>;
 				echo-gpios = <&gpio 16 0>;
 				power-gpios = <&gpio 13 0>;
